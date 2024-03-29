@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"fullstack-golang-react-todo/router"
+	"github.com/kurjata/fullstack-golang-react-todo/router"
 )
 
 func main() {
