@@ -1,10 +1,10 @@
 package main
 
-import (
+import(
 	"fmt"
 	"log"
 	"net/http"
-	"github.com/kurjata/fullstack-golang-react-todo/router"
+	"server/router"
 )
 
 func main() {

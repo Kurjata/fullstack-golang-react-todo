@@ -1,7 +1,7 @@
 package router
 
 import (
-	"github.com/kurjata/fullstack-react-golang-todo/middleware"
+	"server/middleware"
 	"github.com/gorilla/mux"
 
 )
