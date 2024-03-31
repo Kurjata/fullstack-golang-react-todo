@@ -24,7 +24,32 @@ class ToDoList extends Component {
     };
 
 
-    onSubmit
+    onSubmit = () => {
+        let { task } = this.state;
+        // console.log("pRINTING task", this.state.task);
+        if (task) {
+          axios
+            .post(
+              endpoint + "/api/task",
+              {
+                task,
+              },
+              {
+                headers: {
+                  "Content-Type": "application/x-www-form-urlencoded",
+                },
+              }
+            )
+            .then((res) => {
+              this.getTask();
+              this.setState({
+                task: "",
+              });
+              console.log(res);
+            });
+        }
+      };
+    
 
 
     getTasks = () => {
@@ -76,12 +101,39 @@ class ToDoList extends Component {
         });
     };
 
-    updateTask
+    updateTask = (id) => {
+        axios.put(endpoint + "/api/task" + id, {
+            headers:{
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+        }).then((res)=>{
+            console.log(res);
+            this.getTasks();
+        });
+    };
 
-    undoTask
+    undoTask = (id) => {
+        axios.put(endpoint + "/api/task" + id, {
+            headers:{
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+        }).then((res)=>{
+            console.log(res);
+            this.getTasks();
+        });
+    };
 
-    deleteTask
 
+    deleteTask = (id) => {
+        axios.delete(endpoint + "/api/task" + id,{
+            header:{
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+        }).then((res)=>{
+            console.log(res);
+            this.getTasks();
+        });
+    };
 
     render(){
         return(
