@@ -16,6 +16,73 @@ class ToDoList extends Component {
     componentDidMount() {
         this.getTasks();
     }
+
+    onChange = (event) => {
+        this.setState({ 
+            [event.target.name]: event.target.value
+        });
+    };
+
+
+    onSubmit
+
+
+    getTasks = () => {
+        axios.get(endpoint + "/api/task").then((res)=>{
+            if(res.data){
+                this.setState({
+                    items: res.data.map((item)=>{
+                        let color = "yellow";
+                        let style = {
+                            wordWrap: "break-word",
+                        };
+
+                        if(item.status){
+                            color = "green";
+                            style["textDecoration"] = "line-through";
+                        }
+
+                        return (
+                            <Card key = {item._id} color = {color} fluid className = "rough">
+                                <Card.Content>
+                                    <Card.Header textAlign = "left">
+                                        <div style = {style}>{item.task}</div>
+                                    </Card.Header>
+
+                                    <Card.Meta textAlign = "right">
+                                        <Icon 
+                                        name = "check circle"
+                                        color = "blue"
+                                        onClick = {()=>this.updateTask(item._id)}
+                                        />
+                                        <sapn style = {{paddingRight: 10}}>Undo</sapn>
+                                        <Icon
+                                        name = "delete"
+                                        color = "red"
+                                        onClick = {()=>this.deleteTask(item._id)}
+                                        />
+                                        <sapn style = {{paddingRight: 10}}>Delete</sapn>
+                                    </Card.Meta>
+                                </Card.Content>
+                            </Card>
+                        );
+                    }),
+                });
+            }else{
+                this.setState({
+                    items: [],
+                });
+            }
+        });
+    };
+
+    updateTask
+
+    undoTask
+
+    deleteTask
+
+
     render(){
         return(
             <div>
@@ -35,7 +102,11 @@ class ToDoList extends Component {
                                 fluid
                                 placeholder="Create your task here..."
                             />
+                            {/*<Button>Create Task</Button>*/}
                         </form>
+                    </div>
+                    <div className = "row">
+                        <Card.Group>{this.state.items}</Card.Group>
                     </div>
 
                 </div>
